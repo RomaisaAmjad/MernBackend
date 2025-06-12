@@ -1,0 +1,19 @@
+
+{
+  "name": "lecture-4---diving-into-express-js",
+  "version": "1.0.0",
+  "description": "4th Lecture Code",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Romaisa Amjad",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
