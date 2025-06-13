@@ -1,6 +1,5 @@
 // model are code representations of the database tables
 // No of models = No of tables
-
 const sequelize = require('./index'); // importing the sequelize instance
 const {DataTypes} = require('sequelize'); // importing the DataTypes from the sequelize library
 
@@ -21,7 +20,7 @@ const Product = sequelize.define('products',{
         type:DataTypes.INTEGER,
         allowNull:false,
     },
-    Available:{
+    isAvailable:{
         type:DataTypes.BOOLEAN,
         allowNull:false,
         defaultValue:true,
@@ -37,7 +36,7 @@ const Product = sequelize.define('products',{
     },
 })
 
-// This model will be imported by controller so we will export it from here
+//This model will be imported by controller so we will export it from here
 module.exports = Product;
 
 
