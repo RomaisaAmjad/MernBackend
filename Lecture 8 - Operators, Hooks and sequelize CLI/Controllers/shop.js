@@ -1,7 +1,6 @@
 
 const Shops = require('../models/shop');
-const {asyncWrapper} = require('../Middlewares/asyncWrapper');
-
+const{asyncWrapper} = require('../Middlewares/asyncWrapper');
 
 exports.get = asyncWrapper(async function(req,res){
          const shops = await Shops.findAndCountAll(); // if we want both shops and count then we can use this
@@ -11,12 +10,10 @@ exports.get = asyncWrapper(async function(req,res){
 // const shops = await Shops.count(); // sends back no of shops in data base in this case its 5
 //const shops = await Shops.findAll(); // send back all the shops in data base in this case its 5 
 
-
 exports.post= asyncWrapper(async function(req,res){
-            const {name,Address,price}=req.body;
+            const {name,price}=req.body;
             const shop= await Shops.create({
                name:name,
-               Address:Address,
                price:price,
              })
             
