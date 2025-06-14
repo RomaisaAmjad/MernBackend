@@ -1,5 +1,4 @@
-
-const Customers = require('../models/customer');
+const {customers:Customers} = require('../models/index.js');
 const{asyncWrapper} = require('../Middlewares/asyncWrapper');
 const bcrypt = require('bcryptjs');
 
@@ -7,11 +6,11 @@ const bcrypt = require('bcryptjs');
 exports.get = asyncWrapper(async function(req,res){
          const customers = await Customers.findAndCountAll(); 
          res.send(customers);
-});
+}); 
 
 
 
-exports.post= asyncWrapper(async function(req,res){
+exports.signup= asyncWrapper(async function(req,res){
             const {name,email,password,gender,balance}=req.body;
             const salt = await bcrypt.genSalt(12); // 12 is the number of rounds of hashing for hashing the password randomly for security
             const hashedPassword = await bcrypt.hash(password,salt);

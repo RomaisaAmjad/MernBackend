@@ -5,6 +5,6 @@ const router = Router();
 const controller = require('../Controllers/customer');
 
 router.get('/',controller.get);
-router.post('/',validateCustomer,controller.post);
+router.post('/',validateCustomer,controller.signup);
 
 module.exports = router;

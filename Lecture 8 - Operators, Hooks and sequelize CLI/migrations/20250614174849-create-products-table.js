@@ -1,7 +1,11 @@
-module.exports = (sequelize,DataTypes)=>{
-    
-const Product = sequelize.define('products',{
-    id:{
+'use strict';
+
+const tableName = 'products';
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, DataTypes) {
+    await queryInterface.createTable(tableName,{
+      id:{
         type : DataTypes.INTEGER,
         autoIncrement:true,
         allowNull:false,
@@ -29,7 +33,11 @@ const Product = sequelize.define('products',{
         type:DataTypes.DATE,
         allowNull:false,
     },
-})
-   return Product;
-}
+      
+    })
+  },
 
+  async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable(tableName);
+  }
+};

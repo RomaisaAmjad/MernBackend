@@ -1,9 +1,10 @@
-const moment = require('moment');
-module.exports = (sequelize,DataTypes)=>{
-
-const Customer = sequelize.define('customers',{
-
-    id:{
+'use strict';
+const tableName = 'customers';
+/** @type {import('sequelize-cli').Migration} */
+module.exports = {
+  async up (queryInterface, DataTypes) {
+    await queryInterface.createTable(tableName,{
+      id:{
         type : DataTypes.INTEGER,
         autoIncrement:true,
         allowNull:false,
@@ -40,15 +41,10 @@ const Customer = sequelize.define('customers',{
         type:DataTypes.INTEGER,
         allowNull:false,
     },
-})
+  })
+},
 
-
-// beforeCreate is a hook that runs before a customer is created
-Customer.beforeCreate(function(customer){
-    customer.dataValues.createdAt = moment().unix();
-    customer.dataValues.updatedAt = moment().unix();
-})
-return Customer;
-}
-
-
+  async down (queryInterface, Sequelize) {
+    await queryInterface.dropTable(tableName);
+  }
+};

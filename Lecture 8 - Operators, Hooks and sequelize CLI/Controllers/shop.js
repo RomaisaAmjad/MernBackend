@@ -1,5 +1,5 @@
 
-const Shops = require('../models/shop');
+const {shops:Shops} = require('../models/index.js');
 const{asyncWrapper} = require('../Middlewares/asyncWrapper');
 
 exports.get = asyncWrapper(async function(req,res){
@@ -7,8 +7,6 @@ exports.get = asyncWrapper(async function(req,res){
          res.send(shops);
 });
 
-// const shops = await Shops.count(); // sends back no of shops in data base in this case its 5
-//const shops = await Shops.findAll(); // send back all the shops in data base in this case its 5 
 
 exports.post= asyncWrapper(async function(req,res){
             const {name,price}=req.body;
@@ -20,16 +18,7 @@ exports.post= asyncWrapper(async function(req,res){
              res.status(201).send(shop);
 });
 
-// const shop = await Shops.findOrCreate({
-//    where:{
-//       name:name
-//    },
-//    defaults:{
-//       Address,
-//       price,
-//    }
-// })
-     
+
 
 exports.getOne = asyncWrapper(async function(req,res){
          const{shopid} = req.params;

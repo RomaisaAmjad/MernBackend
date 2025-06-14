@@ -1,19 +1,10 @@
-const Products = require('../models/product');
+const {products:Products} = require('../models/index.js'); //Note: In JS projects by default import file is index.js so if we donot write the name for it, the code will work
 const{asyncWrapper} = require('../Middlewares/asyncWrapper');
 const {Op} = require('sequelize');
 
 
 exports.get =  asyncWrapper(async function(req,res){ 
      const products = await Products.findAll({
-      // where:{
-      //   [Op.and]:[
-      //     {isAvailable:true},{price:{[Op.gt]:3000}}
-      //   ]
-      // },
-      where:{
-        id:[1,3,5,8,9]
-      }
-        // attributes:['id','name','price','isAvailable'] // returns some specific coloumns only
      });
     res.status(200).send({products});
 });
