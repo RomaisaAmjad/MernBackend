@@ -1,11 +1,6 @@
-// model are code representations of the database tables
-// No of models = No of tables
-const sequelize = require('./index'); // importing the sequelize instance
-const {DataTypes} = require('sequelize'); // importing the DataTypes from the sequelize library
-
-
+module.exports = (sequelize,DataTypes)=>{
+    
 const Product = sequelize.define('products',{
-
     id:{
         type : DataTypes.INTEGER,
         autoIncrement:true,
@@ -35,10 +30,6 @@ const Product = sequelize.define('products',{
         allowNull:false,
     },
 })
+   return Product;
+}
 
-//This model will be imported by controller so we will export it from here
-module.exports = Product;
-
-
-// Why we need to define schema?
-// As we are using this library for easily inserting and deleting and all the stuff, before ORM what were we doing? calling the quereis of SQL with datatypes and values but when we define models and schema we can easily insert and delete and all the stuff without specifying the fields and values

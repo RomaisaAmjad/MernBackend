@@ -1,6 +1,5 @@
 // model are code representations of the database tables
 // No of models = No of tables
-
 const sequelize = require('./index'); // importing the sequelize instance
 const {DataTypes} = require('sequelize'); // importing the DataTypes from the sequelize library
 

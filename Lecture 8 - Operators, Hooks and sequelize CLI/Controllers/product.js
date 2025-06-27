@@ -1,11 +1,12 @@
-const path = require('path');
-const Products = require('../models/product');
-const {asyncWrapper} = require('../Middlewares/asyncWrapper');
+const {products:Products} = require('../models/index.js'); //Note: In JS projects by default import file is index.js so if we donot write the name for it, the code will work
+const{asyncWrapper} = require('../Middlewares/asyncWrapper');
+const {Op} = require('sequelize');
+
 
 exports.get =  asyncWrapper(async function(req,res){ 
-     const products = await Products.findAll();
-         //{order:[['price','ASC']], });     // we can add limit and offset here
-     res.render(path.join(__dirname,'../views','products'),{title:"Romaisa's Products",products:products});
+     const products = await Products.findAll({
+     });
+    res.status(200).send({products});
 });
 
 exports.post = asyncWrapper(async function(req,res){
@@ -15,6 +16,7 @@ exports.post = asyncWrapper(async function(req,res){
                 price :price,
                 isAvailable: isAvailable,
             });
+            console.log("Received body:", req.body);
             res.status(201).send({message:"Product added successfully",product});
 });
 
