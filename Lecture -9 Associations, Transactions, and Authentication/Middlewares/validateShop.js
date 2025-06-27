@@ -1,8 +1,20 @@
-exports.validateShop=(req,res,next)=>{
-    const{name,price}=req.body;
 
-    if(!name|| !price ){
-        return res.status(400).send("ERROR: name,and price are required!");
+const joi = require("joi");
+const shopSchema = joi.object({
+    name: joi.string().min(3).max(30).required(),
+    price:joi.number().required()
+   
+});
+const validateShop =(req,res,next)=>{
+    const{error,value} = shopSchema.validate(req.body);
+    if(error){
+        return res.status(400).send(error.details[0].message);
     }
+    req.body=value;
     next();
 }
+    
+module.exports = {validateShop};
+    
+    
+    
