@@ -4,8 +4,8 @@
     const port = 3000;
     //Imports
 
-    const shopRouter = require('./routes/shops');
-    const customerRouter = require('./routes/customer');
+    const shopRouter = require('./routes/shops.route');
+    const customerRouter = require('./routes/customer.route');
 
     app.use(express.static('views'));
     app.use(express.json());

@@ -33,6 +33,12 @@ const Product = sequelize.define('products',{
         type:DataTypes.DATE,
         allowNull:false,
     },
+    // fk_shop_id:{
+    // type :DataTypes.INTEGER,
+    //allowNull :false
+    //}
+
+
 })
 Product.associate = function (models) {
     Product.belongsTo(models.shops, {
@@ -40,6 +46,12 @@ Product.associate = function (models) {
       onDelete: 'CASCADE',
     });
   };
+  Product.associate = (models)=>{ // one shop has many products
+    Product.belongsTo (models.shops,{
+        foreignKey:'fk_shop_id',
+        as:"shop" // as--->alias; giving new name
+    })
+};
    return Product;
 }
 

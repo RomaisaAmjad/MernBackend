@@ -24,7 +24,14 @@
         type:DataTypes.DATE,
         allowNull:false,
     },
-})
+   
+});
+Shop.associate = (models)=>{ // one shop has many products
+    Shop.hasMany (models.products,{
+        foreignKey:'fk_shop_id',
+        as:"products" // as--->alias; giving new name
+    })
+};
 return Shop;
 }
 
