@@ -1,9 +1,16 @@
 
-const {shops:Shops} = require('../models/index.js');
-const{asyncWrapper} = require('../Middlewares/asyncWrapper');
+const {shops:Shops,products:Products} = require('../models/index.js');
+const{asyncWrapper} = require('../middlewares/asyncWrapper.middleware.js');
 
 exports.get = asyncWrapper(async function(req,res){
-         const shops = await Shops.findAndCountAll(); // if we want both shops and count then we can use this
+         const shops = await Shops.findAndCountAll({
+            include :{
+               model:Products,
+               as:'products'
+            }
+         }
+         
+         ); // if we want both shops and count then we can use this
          res.send(shops);
 });
 

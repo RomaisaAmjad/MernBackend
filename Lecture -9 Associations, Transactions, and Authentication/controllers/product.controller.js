@@ -1,10 +1,19 @@
-const {products:Products} = require('../models/index.js'); //Note: In JS projects by default import file is index.js so if we donot write the name for it, the code will work
-const{asyncWrapper} = require('../Middlewares/asyncWrapper');
+const {products:Products, shops:Shops} = require('../models/index.js'); //Note: In JS projects by default import file is index.js so if we donot write the name for it, the code will work
+const{asyncWrapper} = require('../middlewares/asyncWrapper.middleware.js');
 const {Op} = require('sequelize');
 
 
 exports.get =  asyncWrapper(async function(req,res){ 
+  const {id:shopId} = req.shop; // getting shop id k sirf is shop mai add karlo sahi hyna
      const products = await Products.findAll({
+      where :{
+       fk_shop_id:shopId
+
+      },
+      include:{
+         model : Shops,
+         as :"shop"
+      }
      });
     res.status(200).send({products});
 });
@@ -14,7 +23,10 @@ exports.post = asyncWrapper(async function(req,res){
             const {id:shopId} = req.shop;
             console.log("shopId:", shopId);
 
+            
+
             const {name,price,isAvailable} = req.body;
+            console.log(req.body);
             const product = await Products.create({
                 name:name,
                 price :price,

@@ -1,4 +1,5 @@
-const moment = require('moment');
+const { getUnixTime} = require ('date-fns');
+
 module.exports = (sequelize,DataTypes)=>{
 
 const Customer = sequelize.define('customers',{
@@ -45,8 +46,9 @@ const Customer = sequelize.define('customers',{
 
 // beforeCreate is a hook that runs before a customer is created
 Customer.beforeCreate(function(customer){
-    customer.dataValues.createdAt = moment().unix();
-    customer.dataValues.updatedAt = moment().unix();
+    const unixDate = getUnixTime(new Date());
+    customer.dataValues.createdAt = unixDate;
+    customer.dataValues.updatedAt = unixDate;
 })
 return Customer;
 }
