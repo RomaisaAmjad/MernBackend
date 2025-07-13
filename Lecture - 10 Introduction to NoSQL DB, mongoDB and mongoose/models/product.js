@@ -1,7 +1,7 @@
 const {Schema, Types,model} = require("mongoose");
 
 const productSchema = new Schema({
-    id:{
+    _id:{
         type: Types.ObjectId,
         required: true,
     },
@@ -13,12 +13,16 @@ const productSchema = new Schema({
         type: Number,
         required: true,
     },
+    isAvailable:{
+        type: Boolean,
+        required: true,
+    },
     createdAt:{
         type: Date,
         required: true,
         default: Date.now,
     },
-    UpdatedAt:{
+    updatedAt:{
         type: Date,
         required: true,
         default: Date.now,

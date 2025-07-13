@@ -5,12 +5,10 @@
     const port = 3000;
     //Imports
     const productRouter = require('./routes/product');
-    const shopRouter = require('./routes/shops');
 
     app.use(express.static('views'));
     app.use(express.json());
 
-    //setting rendering engine
     app.set("view engine","ejs");
 
     connectToMongoDb();
@@ -19,7 +17,7 @@
     });
 
     app.use('/api/products',productRouter);
-    app.use('/api/shops',shopRouter);
+
 
     app.listen(port,()=>{
         console.log(`Server is running on port ${port}`);

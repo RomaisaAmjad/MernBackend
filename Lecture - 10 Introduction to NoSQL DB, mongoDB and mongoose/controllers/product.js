@@ -1,35 +1,49 @@
-const products = require('../models/product');
-const path = require('path');
+const Product = require('../models/product.js'); 
+const{asyncWrapper} = require('../middlewares/asyncWrapper');
+const {Types} = require("mongoose");
 
-module.exports = {
 
-    get:function(req,res){
-        res.render(path.join(__dirname,'../views','products'),{title:"Romaisa's Products",products});
-    },
+exports.get =  asyncWrapper(async function(req,res){ 
+     const products = await Product.find();
+    res.status(200).send({products});
+});
 
-    post : function(req,res){
-        const {productname,productprice} = req.body;
-        products.push({productname,productprice});
-        res.status(201).send({message:"Product added successfully"});
-    },
+exports.post = asyncWrapper(async function(req,res){
+            const {name,price,isAvailable} = req.body;
+            const product = await Product.create({
+                _id: new Types.ObjectId(),
+                name:name,
+                price :price,
+                isAvailable: isAvailable,
+            });
+            console.log("Received body:", req.body);
+            res.status(201).send({message:"Product added successfully",product});
+});
 
-    put:function(req,res){
-        const {productname,productprice} = req.body;
-        let{productid}= req.params;// extracting the productid from the request params
-        productid = Number(productid); // converting into number
-        if(!products[productid]){
-            return res.status(404).send("Product not found");
-        }
-        products[productid].productname = productname;
-        products[productid].productprice = productprice;
-        res.status(200).send({message:"Product updated successfully"});
-    },
+exports.put = asyncWrapper(async function(req,res){
+            const {name,price,isAvailable} = req.body;
+            const {productid} = req.params;
+            await Product.updateOne({
+              _id : productid},{
+                name,
+                price,
+                isAvailable
+            });
+            res.status(200).send({message:"Product updated successfully"});
+});
+      
+exports.delete = asyncWrapper(async function(req,res){
+            const {productid} = req.params;
+            await Product.findByIdAndDelete(productid);
+            res.status(200).send({message:"Product deleted successfully"});
+});
     
-    delete:function(req,res){
-        let {productid} = req.params;
-        productid = Number(productid);
-        products.splice(productid,1);
-        res.status(200).send({message:"Product deleted successfully"});
-    },
 
-}
+exports.getOne = asyncWrapper(async function(req,res){
+            const {productid} = req.params;
+            const product = await Product.findOne({_id:productid});
+            res.status(200).send({product});
+});
+
+
+
